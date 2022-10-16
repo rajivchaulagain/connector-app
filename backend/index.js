@@ -1,14 +1,16 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors'
-import blogRoutes from './routes/blogRoutes.js';
-import publicRoutes from './routes/publicRoutes.js';
-import userRoutes from './routes/userRoutes.js';
-import { errorHandler } from './middleware/errorMiddleWare.js';
-import { connectDB } from './database/db.js';
+import blogRoutes from './src/routes/blogRoutes.js';
+import publicRoutes from './src/routes/publicRoutes.js';
+import userRoutes from './src/routes/userRoutes.js';
+import { errorHandler } from './src/middleware/errorMiddleWare.js';
+import { connectDB } from './src/database/db.js';
 import path from 'path';
 
 dotenv.config();
+
+const port = process.env.PORT || 8000;
 
 connectDB();
 
@@ -16,15 +18,15 @@ const app = express();
 
 app.use(express.json());
 
-app.use('/' , express.static('public'));
+app.use('/', express.static('public'));
 
 //serve static assests if production
 
-if(process.env.NODE_ENV === 'production'){
+if (process.env.NODE_ENV === 'production') {
     //set static folder
-    app.use(express.static('./client/build'));
-    app.get('*' , (req , res) => {
-        res.sendFile(path.resolve(__dirname , "./client/build", "index.html"));
+    app.use(express.static(path.join(__dirname, 'client')));
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, "client/build", "index.html"));
     });
 }
 
@@ -32,7 +34,6 @@ app.use(cors());
 
 app.use(express.urlencoded({ extended: false }))
 
-const port = process.env.PORT || 8000;
 
 app.get('/', (req, res) => {
     res.send(`this is home page`);
