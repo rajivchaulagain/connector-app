@@ -4,8 +4,13 @@
   "description": "",
   "main": "index.js",
   "type": "module",
+  "engines": {
+    "node": "16.17.0",
+    "npm": "8.15.0",
+    "yarn": "1.22.19"
+  },
   "scripts": {
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false yarn install --prefix cd client && yarn run build --prefix cd client",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false cd .. && cd client && yarn install && yarn run build",
     "server": "nodemon backend/src/index.js"
   },
   "author": "",
