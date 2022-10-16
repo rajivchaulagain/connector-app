@@ -4,9 +4,15 @@
   "description": "",
   "main": "index.js",
   "type": "module",
+  "engines": {
+    "npm": "8.15.0",
+    "node":"16.17.0",
+    "yarn":"1.22.19"
+  },
   "scripts": {
     "heroku-postbuild": "cd client && yarn install && yarn run build",
-    "server": "nodemon src/index.js"
+    "server": "nodemon index.js",
+    "start": "node index.js"
   },
   "author": "",
   "license": "ISC",
